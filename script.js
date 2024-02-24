@@ -1,20 +1,19 @@
-function generateQR() {
-    // Get the text input value
-    const textInput = document.getElementById('text-input').value;
+const qrCodeInput = document.getElementById('qr-code-input');
+const generateQrCodeButton = document.getElementById('generate-qr-code-button');
+const qrCodeContainer = document.getElementById('qr-code-container');
 
-    // Check if there is input
-    if (!textInput) {
-        alert('Please enter text to generate QR code.');
-        return;
-    }
-
-    // Clear existing QR code
-    document.getElementById('qrcode').innerHTML = '';
-
-    // Create QR code using a library (e.g., qrious)
-    const qr = new QRious({
-        element: document.getElementById('qrcode'),
-        value: textInput,
-        size: 200,
+const generateQRCode = () => {
+  const qrCodeData = qrCodeInput.value;
+  if (qrCodeData) {
+    const qrCode = new QRCode(qrCodeContainer, {
+      text: qrCodeData,
+      width: 200,
+      height: 200,
+      colorDark: '#000',
+      colorLight: '#fff',
+      correctLevel: QRCode.CorrectLevel.H
     });
-}
+  }
+};
+
+generateQrCodeButton.addEventListener('click', generateQRCode);
